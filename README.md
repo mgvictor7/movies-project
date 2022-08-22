@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Before start
+1. You need an api key from https://www.themoviedb.org/
+2. Rename the file example.key.json located in src/constants to key.json
+3. Put your api key in this file
+
 ## Available Scripts
 
 In the project directory, you can run:

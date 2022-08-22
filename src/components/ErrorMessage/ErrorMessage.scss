@@ -1,0 +1,31 @@
+.errorMessage {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #f44336;
+  color: #FFFFFF;
+  align-items: center;
+
+  .errorMessageBtn {
+    background-color: #FFFFFF;
+    color: #f44336;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 60px;
+    margin: 10px;
+
+    cursor: pointer;
+  }
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
