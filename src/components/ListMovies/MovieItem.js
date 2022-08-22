@@ -1,13 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import usePosterImage from '../../hooks/usePosterImage';
 
-import './Home.scss';
+import './MovieItem.scss';
 
 export default function MovieItem(props) {
   const { movie } = props;
 
-  console.log(movie);
   const { poster_path, title, popularity, release_date } = movie
 
   const urlImg = usePosterImage(poster_path);
@@ -30,3 +30,7 @@ export default function MovieItem(props) {
     </div>
   );
 }
+
+MovieItem.propTypes = {
+  movie: PropTypes.objectOf(PropTypes.any).isRequired,
+};

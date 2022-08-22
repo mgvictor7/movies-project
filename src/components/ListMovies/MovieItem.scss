@@ -1,0 +1,68 @@
+
+.movieItem {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #dbdbdb;
+
+  .image {
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    width: 150px;
+    height: 225px;
+    background: #dbdbdb;
+    overflow: hidden;
+    border-radius: 10px;
+
+    img {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .movieData {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 2em;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+    padding: 0;
+  }
+  .releaseDate {
+    font-size: 1em;
+    margin: 10px 0 0 0;
+    padding: 0;
+    color: rgba(0,0,0,0.6);
+  }
+  .popularity {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: flex-end;
+    font-size: 1em;
+    margin: 10px 0 0 0;
+    padding: 0;
+    color: rgba(0,0,0,0.6);
+
+    span {
+      font-weight: 700;
+      margin-right: 5px;
+    }
+  }
+
+}
+
+@media screen and (max-width: 650px) {
+  .movieItem {
+    flex-direction: column;
+    align-items: center;
+  }
+}

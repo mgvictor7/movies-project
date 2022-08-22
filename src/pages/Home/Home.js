@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as MoviesActions from '../../redux/movies/actions';
@@ -7,11 +7,14 @@ import Layout from '../../components/Layout';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
 
-import MovieItem from './MovieItem';
+import ListMovies from '../../components/ListMovies';
 
 import './Home.scss';
 
+
 export default function Home() {
+  const getMoviesRef = useRef();
+
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -37,7 +40,11 @@ export default function Home() {
         setHasError(true);
       },
     }
-    getMovies(params);
+
+    clearTimeout(getMoviesRef.current);
+    getMoviesRef.current = setTimeout(() => {
+      getMovies(params);
+    }, 1000);
   }
 
   const handleRetryGetMovies = () => {
@@ -52,11 +59,10 @@ export default function Home() {
     }
     if (movies && movies.length) {
       return (
-        <div className="listMovies">
-          {movies.map(x => 
-            <MovieItem key={x.id} movie={x} />
-          )}
-        </div>
+        <ListMovies
+          movies={movies}
+          handleGetMovies={handleGetMovies}
+        />
       );
     }
     return null;

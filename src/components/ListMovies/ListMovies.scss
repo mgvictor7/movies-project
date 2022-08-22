@@ -1,0 +1,11 @@
+.ListMoviesWrapper {
+  // overflow-y: scroll;
+  background-color: #383636;
+  overflow: hidden;
+}
+
+.listMovies {
+  // overflow-y: hidden;
+  overflow: scroll;
+  height: calc(100vh - 60px);
+}
