@@ -6,6 +6,7 @@ import * as MoviesActions from '../../redux/movies/actions';
 import Layout from '../../components/Layout';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
+import Search from '../../components/Search';
 
 import ListMovies from '../../components/ListMovies';
 
@@ -14,6 +15,8 @@ import './Home.scss';
 
 export default function Home() {
   const getMoviesRef = useRef();
+  const isSearchingRef = useRef(false);
+  const searchTextRef = useRef();
 
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -23,6 +26,12 @@ export default function Home() {
   const dispatch = useDispatch();
   const getMovies = (params) => {
     dispatch(MoviesActions.getMovies(params));
+  }
+  const searchMovies = (params) => {
+    dispatch(MoviesActions.searchMovies(params));
+  }
+  const resetMovies = (params) => {
+    dispatch(MoviesActions.resetMovies(params));
   }
 
   useEffect(() => {
@@ -51,6 +60,35 @@ export default function Home() {
     handleGetMovies();
   }
 
+  const handleSearchMovie = (text) => {
+    searchTextRef.current = text;
+    setIsLoading(true);
+    if (!isSearchingRef.current) {
+      isSearchingRef.current = true;
+      resetMovies();
+    }
+    const params = {
+      query: text,
+      callbackOK: () => { setIsLoading(false); },
+    };
+    searchMovies(params);
+  }
+
+  const handleCancelSearch = () => {
+    isSearchingRef.current = false;
+    searchTextRef.current = null
+    resetMovies();
+    handleGetMovies();
+  }
+
+  const handleGetMoviesEndScroll = () => {
+    if (isSearchingRef.current) {
+      handleSearchMovie(searchTextRef.current);
+    } else {
+      handleGetMovies();
+    }
+  }
+
   const renderMovies = () => {
     if (!isLoading && !movies.length) {
       return (
@@ -61,7 +99,7 @@ export default function Home() {
       return (
         <ListMovies
           movies={movies}
-          handleGetMovies={handleGetMovies}
+          handleGetMovies={handleGetMoviesEndScroll}
         />
       );
     }
@@ -71,6 +109,10 @@ export default function Home() {
   return (
     <Layout>
       <>
+        <Search
+          handleSearchMovie={handleSearchMovie}
+          handleCancelSearch={handleCancelSearch}
+        />
         {isLoading && <Loading center />}
         {hasError &&
           <ErrorMessage retryGetMovies={handleRetryGetMovies} />

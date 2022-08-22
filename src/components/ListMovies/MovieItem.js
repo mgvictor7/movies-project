@@ -16,7 +16,7 @@ export default function MovieItem(props) {
     <div className='movieItem'>
       <div className='image'>
         <div className='wrapperImg'>
-          <img src={urlImg} />
+          <img src={urlImg} alt={urlImg} />
         </div>
       </div>
       <div className='movieData'>

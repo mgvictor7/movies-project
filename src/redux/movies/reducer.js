@@ -18,6 +18,14 @@ export default function movies(state = initialState, action) {
         lastUpdate: Date.now(),
       };
     }
+    case 'MOVIES_RESET': {
+      return {
+        movies: [],
+        currentPage: null,
+        favoritesMovies: [],
+        lastUpdate: null,
+      }
+    }
     default:
       return state;
   }
