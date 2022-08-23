@@ -1,7 +1,7 @@
 const initialState = {
   movies: [],
   currentPage: null,
-  favoritesMovies: [],
+  favoritesMovies: {},
   lastUpdate: null,
 };
 
@@ -17,6 +17,16 @@ export default function movies(state = initialState, action) {
         currentPage: page,
         lastUpdate: Date.now(),
       };
+    }
+    case 'MOVIES_FAVORITE_MOVIE': {
+      const { idMovie, isFavorite, } = action.data;
+      return {
+        ...state,
+        favoritesMovies: {
+          ...state.favoritesMovies,
+          [idMovie]: isFavorite,
+        },
+      }
     }
     case 'MOVIES_RESET': {
       return {

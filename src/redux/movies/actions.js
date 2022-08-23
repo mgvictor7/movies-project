@@ -142,9 +142,28 @@ import AxiosRequest from '../../libs/AxiosRequest';
 
 
 /**
- * Reset list movies
+ * Set movie as favorite
  * 
- * @returns 
+ * @param {Object} args
+ * @param {Number} args.idMovie
+ * @param {Boolean} args.isFavorite
+ * @param {Function} [args.callbackOK]
+ */
+export function setFavoriteMovie(args) {
+  return async (dispatch) => {
+    const { idMovie, isFavorite } = args;
+    dispatch({
+      type: 'MOVIES_FAVORITE_MOVIE',
+      data: {
+        idMovie,
+        isFavorite,
+      }
+    });
+  };
+}
+
+/**
+ * Reset list movies
  */
 export function resetMovies() {
   return async (dispatch, getState) => {
