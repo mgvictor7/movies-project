@@ -192,7 +192,6 @@ import AxiosRequest from '../../libs/AxiosRequest';
   };
 }
 
-
 /**
  * Set movie as favorite
  * 
@@ -200,17 +199,51 @@ import AxiosRequest from '../../libs/AxiosRequest';
  * @param {Number} args.idMovie
  * @param {Boolean} args.isFavorite
  * @param {Function} [args.callbackOK]
+ * @param {Function} [args.callbackERROR]
  */
-export function setFavoriteMovie(args) {
-  return async (dispatch) => {
+ export function setFavoriteMovie(args) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const { session, user } = state.user;
     const { idMovie, isFavorite } = args;
-    dispatch({
-      type: 'MOVIES_FAVORITE_MOVIE',
-      data: {
-        idMovie,
-        isFavorite,
-      }
-    });
+
+    const params = {
+      session_id: session.session_id,
+    };
+
+    const data = {
+      media_type: 'movie',
+      media_id: idMovie,
+      favorite: isFavorite,
+    }
+
+    AxiosRequest({
+      url: `account/${user.username}/favorite`,
+      method: 'POST',
+      params,
+      data,
+    })
+      .then((response) => {
+        const result = response.data;
+
+        dispatch({
+          type: 'MOVIES_FAVORITE_MOVIE',
+          data: {
+            idMovie,
+            isFavorite,
+            ...result,
+          }
+        });
+
+        if (args.callbackOK) {
+          args.callbackOK();
+        }
+      })
+      .catch(async (error) => {
+        if (args.callbackERROR) {
+          args.callbackERROR(error);
+        }
+      });
   };
 }
 

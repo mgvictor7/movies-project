@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import Rater from 'react-rater'
 
@@ -70,9 +70,9 @@ export default function MovieDetails() {
         title='Set favorite'
       >
         <FontAwesomeIcon
-          icon={faStar}
+          icon={faHeart}
           size={'2x'}
-          color={isFavorite ? '#e5d732' : '#aba8a8'}
+          color={isFavorite ? '#db4242' : '#aba8a8'}
           onClick={handleFavorite}
         />
       </div>
