@@ -142,6 +142,58 @@ import AxiosRequest from '../../libs/AxiosRequest';
 
 
 /**
+ * Rate Movie
+ * 
+ * @param {Object} args
+ * @param {Number} args.idMovie
+ * @param {Number} args.rateMovieValue
+ * @param {Function} [args.callbackOK]
+ * @param {Function} [args.callbackERROR]
+ */
+ export function setRateMovie(args) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const { session } = state.user;
+
+    const params = {
+    };
+
+    const data = {
+      value: parseInt(args.rateMovieValue, 10),
+      session_id: session.session_id,
+    }
+
+    AxiosRequest({
+      url: `movie/${args.idMovie}/rating`,
+      method: 'POST',
+      params,
+      data,
+    })
+      .then((response) => {
+        const result = response.data;
+
+        dispatch({
+          type: 'MOVIES_RATE_MOVIE',
+          data: {
+            result
+          },
+        });
+
+        if (args.callbackOK) {
+          args.callbackOK();
+        }
+      })
+      .catch(async (error) => {
+        console.log('error', error)
+        if (args.callbackERROR) {
+          args.callbackERROR(error);
+        }
+      });
+  };
+}
+
+
+/**
  * Set movie as favorite
  * 
  * @param {Object} args

@@ -13,7 +13,7 @@ export default function Login() {
 
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
+  const [msgError, setMsgError] = useState(null);
 
   const dispatch = useDispatch();
   const login = (params) => {
@@ -21,7 +21,8 @@ export default function Login() {
   }
 
   const handleChange = (event) => {
-    setHasError(false);
+    setMsgError(null);
+  
     const key = event.target.id;
     const _text = event.target.value.trim();
 
@@ -35,6 +36,7 @@ export default function Login() {
     event.preventDefault();
 
     setIsLoading(true);
+    setMsgError(null);
 
     const params = {
       ...formData,
@@ -42,9 +44,9 @@ export default function Login() {
         setIsLoading(false);
         navigate('/', { replace: true });
       },
-      callbackERROR: () => {
+      callbackERROR: (error) => {
         setIsLoading(false);
-        setHasError(true);
+        setMsgError(error.msg);
       }
     };
 
@@ -66,10 +68,10 @@ export default function Login() {
 
             <div className='input-wrapper'>
               <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder='Email'
+                type="text"
+                id="username"
+                name="username"
+                placeholder='Username'
                 onChange={handleChange}
                 required
               />
@@ -92,9 +94,9 @@ export default function Login() {
               </button>
             </div>
 
-            {hasError &&
+            {msgError &&
               <div className='login-error'>
-                <span>Wrong email or password</span>
+                <span>{msgError}</span>
               </div>
             }
 

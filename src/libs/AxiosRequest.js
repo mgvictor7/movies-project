@@ -14,7 +14,7 @@ export default async function request(args) {
   const { method, url, data, params } = args;
   return new Promise((resolve, reject) => {
 
-    const _url = new URL(`${urlService}/${url}`);
+    let _url = new URL(`${urlService}/${url}`);
     _url.searchParams.set('api_key', apiKey);
     _url.searchParams.set('language', 'en-US');
   
@@ -26,8 +26,10 @@ export default async function request(args) {
         _url.searchParams.set(key, value);
       }
     }
+    _url = _url.toString();
 
     axios({
+      headers: { "Content-Type": "multipart/form-data" },
       method,
       url: _url,
       data,

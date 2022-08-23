@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { useDispatch, useSelector } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import Rater from 'react-rater'
 
 import * as MoviesActions from '../../redux/movies/actions';
 
@@ -20,6 +21,7 @@ export default function MovieDetails() {
   const { idMovie } = useParams();
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const [rating, setRating] = useState(0);
 
   const [isAuthenticated, user] = useUserAutheticated();
   const [isLoading, hasError, movie] = useMovie(parseInt(idMovie, 10));
@@ -36,6 +38,9 @@ export default function MovieDetails() {
   }, [matchFavoriteMovie]);
 
   const dispatch = useDispatch();
+  const setRateMovie = (params) => {
+    dispatch(MoviesActions.setRateMovie(params));
+  }
   const setFavoriteMovie = (params) => {
     dispatch(MoviesActions.setFavoriteMovie(params));
   }
@@ -49,9 +54,21 @@ export default function MovieDetails() {
     setIsFavorite(prev => !prev);
   };
 
+  const handleRate = (args) => {
+    setRating(args.rating);
+    const params = {
+      idMovie,
+      rateMovieValue: args.rating,
+    };
+    setRateMovie(params);
+  };
+
   const renderMarkAsFavorite = () => {
     return (
-      <div className="favorite-wrapper">
+      <div
+        className="favorite-wrapper"
+        title='Set favorite'
+      >
         <FontAwesomeIcon
           icon={faStar}
           size={'2x'}
@@ -77,6 +94,13 @@ export default function MovieDetails() {
             <p className='releaseDate'>{movie.release_date}</p>
             <p className='overview'>{movie.overview}</p>
           </div>
+          {isAuthenticated &&
+            <div className='rate-wrapper'>
+              <p className='rate-title'>Rate the movie</p>
+              <Rater total={10} rating={rating} onRate={handleRate} />
+
+            </div>
+          }
         </div>
       );
     }

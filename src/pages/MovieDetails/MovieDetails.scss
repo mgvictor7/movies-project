@@ -1,3 +1,8 @@
+$react-rater-link: #ccc !default;
+$react-rater-hover: #fd9 !default;
+$react-rater-active: #fc6 !default;
+
+@import 'react-rater/lib/react-rater.scss';
 
 .movieDetails {
   position: relative;
@@ -33,6 +38,20 @@
     right: 10px;
     cursor: pointer;
   }
+
+  .rate-wrapper {
+    margin: 10px 0;
+    
+    .rate-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 0;
+    }
+    .react-rater {
+      font-size: 2rem;
+    }
+  }
+
 }
 
 @media screen and (max-width: 650px) {
