@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 
 import movies from './movies/reducer';
+import user from './user/reducer';
 
 // Combine all reducers
 const appReducer = combineReducers({
   movies,
+  user,
 });
 
 

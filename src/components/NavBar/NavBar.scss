@@ -1,4 +1,4 @@
-.NavBar {
+.nav-bar {
   display: flex;
   flex: 1 1 auto;
   padding: 10px;
@@ -7,18 +7,28 @@
   justify-content: center;
   background-color: #1f1d1d;
 
-  .Title {
+  .title {
     font-size: 30px;
     color: #db4242;
   }
 
-  .LoginButton {
+  .login-button {
     position: absolute;
     right: 10px;
     background-color: #db4242;
     padding: 2px 5px;
     border-radius: 5px;
     color: #FFFFFF;
+    text-decoration: none;
+  }
+
+  .logout-button {
+    position: absolute;
+    right: 10px;
+    background-color: #FFFFFF;
+    padding: 2px 5px;
+    border-radius: 5px;
+    color: #db4242;
     text-decoration: none;
   }
 }

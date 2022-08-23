@@ -141,8 +141,12 @@ import AxiosRequest from '../../libs/AxiosRequest';
 }
 
 
-
- export function resetMovies() {
+/**
+ * Reset list movies
+ * 
+ * @returns 
+ */
+export function resetMovies() {
   return async (dispatch, getState) => {
     dispatch({
       type: 'MOVIES_RESET',
