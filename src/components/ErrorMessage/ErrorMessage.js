@@ -8,16 +8,22 @@ export default function ErrorMessage(props) {
   return (
     <div className="errorMessage">
       <span>An error has occurred</span>
-      <a
-        className='errorMessageBtn'
-        onClick={retryGetMovies}
-      >
-        Retry
-      </a>
+      {retryGetMovies &&
+        <a
+          className='errorMessageBtn'
+          onClick={retryGetMovies}
+        >
+          Retry
+        </a>
+      }
     </div>
   );
 }
 
 ErrorMessage.propTypes = {
-  retryGetMovies: PropTypes.func.isRequired
+  retryGetMovies: PropTypes.func
 };
+
+ErrorMessage.defaultProps = {
+  retryGetMovies: null,
+}

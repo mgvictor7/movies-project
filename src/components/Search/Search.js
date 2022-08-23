@@ -13,7 +13,6 @@ export default function Search(props) {
 
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     const _text = event.target.value.trim();
     setText(_text);
     if (_text.length) {

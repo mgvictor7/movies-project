@@ -15,7 +15,6 @@ export default function ListMovies(props) {
     if (moviesListRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = moviesListRef.current;
       if (scrollTop + clientHeight === scrollHeight) {
-        console.log("reached bottom");
         handleGetMovies();
       }
     }

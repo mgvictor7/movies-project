@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
 import usePosterImage from '../../hooks/usePosterImage';
 
@@ -8,7 +9,7 @@ import './MovieItem.scss';
 export default function MovieItem(props) {
   const { movie } = props;
 
-  const { poster_path, title, popularity, release_date } = movie
+  const { id, poster_path, title, popularity, release_date } = movie
 
   const urlImg = usePosterImage(poster_path);
 
@@ -16,16 +17,25 @@ export default function MovieItem(props) {
     <div className='movieItem'>
       <div className='image'>
         <div className='wrapperImg'>
-          <img src={urlImg} alt={urlImg} />
+          <Link to={`/movie/${id}`}>
+            <img src={urlImg} alt={urlImg} />
+          </Link>
         </div>
       </div>
       <div className='movieData'>
-        <span className='title'>{title}</span>
+        <Link to={`/movie/${id}`}>
+          <span className='title'>{title}</span>
+        </Link>
         <p className='releaseDate'>{release_date}</p>
         <p className='popularity'>
           <span>Popularity: </span>
           {popularity}
         </p>
+        <div className="showDetailsBtnWrapper">
+          <Link className="showDetailsBtn" to={`/movie/${id}`}>
+            Show details
+          </Link>
+        </div>
       </div>
     </div>
   );

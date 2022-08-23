@@ -35,8 +35,12 @@ export default function Home() {
   }
 
   useEffect(() => {
-    handleGetMovies();
-  }, []);
+    if (!movies.length) {
+      handleGetMovies();
+    } else {
+      setIsLoading(false);
+    }
+  }, [movies]);
 
   const handleGetMovies = () => {
     setHasError(false);

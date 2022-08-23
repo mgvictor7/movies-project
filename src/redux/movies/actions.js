@@ -1,7 +1,8 @@
 import AxiosRequest from '../../libs/AxiosRequest';
 
 /**
- *
+ *  Get popular movies
+ * 
  * @param {Object} args
  * @param {Function} [args.callbackOK]
  * @param {Function} [args.callbackERROR]
@@ -49,9 +50,10 @@ import AxiosRequest from '../../libs/AxiosRequest';
 
 
 /**
- *
+ * Search movies by text
+ * 
  * @param {Object} args
- * @param {Number} [args.query]
+ * @param {String} [args.query]
  * @param {Function} [args.callbackOK]
  * @param {Function} [args.callbackERROR]
  */
@@ -97,6 +99,47 @@ import AxiosRequest from '../../libs/AxiosRequest';
       });
   };
 }
+
+/**
+ *  Get movie by id
+ * 
+ * @param {Object} args
+ * @param {Number} args.idMovie
+ * @param {Function} [args.callbackOK]
+ * @param {Function} [args.callbackERROR]
+ */
+ export function getMovie(args) {
+  return async (dispatch) => {
+    const params = {
+    }
+
+    AxiosRequest({
+      url: `movie/${args.idMovie}`,
+      method: 'GET',
+      params,
+    })
+      .then((response) => {
+        const movie = response.data;
+
+        dispatch({
+          type: 'MOVIES_GET_MOVIE',
+          data: {
+            movie
+          },
+        });
+
+        if (args.callbackOK) {
+          args.callbackOK(movie);
+        }
+      })
+      .catch(async (error) => {
+        if (args.callbackERROR) {
+          args.callbackERROR(error);
+        }
+      });
+  };
+}
+
 
 
  export function resetMovies() {
