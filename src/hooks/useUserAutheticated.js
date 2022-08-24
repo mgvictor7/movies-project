@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux'
 const useUserAutheticated = () => {
   const user = useSelector((state) => state.user.user);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(user !== null);
+  const [currentUser, setCurrentUser] = useState(user);
 
   useEffect(() => {
     if (user) {

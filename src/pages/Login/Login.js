@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 
 import * as UserActions from '../../redux/user/actions';
+
+import useUserAutheticated from '../../hooks/useUserAutheticated';
 
 import Loading from '../../components/Loading';
 
@@ -10,10 +12,17 @@ import './Login.scss';
 
 export default function Login() {
   let navigate = useNavigate();
+  const [isAuthenticated] = useUserAutheticated();
 
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [msgError, setMsgError] = useState(null);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/', { replace: true });
+    }
+  }, [isAuthenticated]);
 
   const dispatch = useDispatch();
   const login = (params) => {

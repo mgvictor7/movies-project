@@ -248,6 +248,59 @@ import AxiosRequest from '../../libs/AxiosRequest';
 }
 
 /**
+ * Get favorites movies
+ * 
+ * @param {Object} args
+ * @param {Function} [args.callbackOK]
+ * @param {Function} [args.callbackERROR]
+ */
+ export function getFavoritesMovies(args) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const { session, user } = state.user;
+    const { currentPageFavoritesMovies } = state.movies;
+
+    const params = {
+      session_id: session.session_id,
+    };
+
+    if (currentPageFavoritesMovies) {
+      params.page = currentPageFavoritesMovies + 1;
+    } else {
+      params.page = 1;
+    }
+
+
+    AxiosRequest({
+      url: `account/${user.username}/favorite/movies`,
+      method: 'GET',
+      params,
+    })
+      .then((response) => {
+        const { page, results } = response.data;
+        const result = {
+          page,
+          movies: results,
+        };
+
+        dispatch({
+          type: 'MOVIES_GET_FAVORITES_MOVIES',
+          data: result
+        });
+
+        if (args.callbackOK) {
+          args.callbackOK();
+        }
+      })
+      .catch(async (error) => {
+        if (args.callbackERROR) {
+          args.callbackERROR(error);
+        }
+      });
+  };
+}
+
+/**
  * Reset list movies
  */
 export function resetMovies() {

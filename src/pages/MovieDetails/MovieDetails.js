@@ -27,7 +27,7 @@ export default function MovieDetails() {
   const [isLoading, hasError, movie] = useMovie(parseInt(idMovie, 10));
   const urlImg = usePosterImage(movie?.poster_path);
 
-  const matchFavoriteMovie = useSelector(state => state.movies.favoritesMovies[idMovie]);
+  const matchFavoriteMovie = useSelector(state => state.movies.indexCurrentFavoritesMovies[idMovie]);
 
   useEffect(() => {
     if (matchFavoriteMovie) {

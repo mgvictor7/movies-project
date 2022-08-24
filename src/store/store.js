@@ -2,6 +2,8 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
+import SessionStorage from '../libs/SessionStorage';
+
 import rootReducer from '../redux';
 
 let middleware = [
@@ -16,8 +18,31 @@ if ( process.env.NODE_ENV === "development") {
   ];
 }
 
+function loadFromLocalStorage() {
+  try {
+    const user = SessionStorage.getItem('user');
+    if (user) {
+      const token = SessionStorage.getItem('token');
+      const session = SessionStorage.getItem('session');
+      const storeUser = {
+        user: {
+          user,
+          token,
+          session,
+        },
+      }
+  
+      return storeUser;
+    }
+    return undefined;
+  } catch (e) {
+    return undefined;
+  }
+}
+
 const store = createStore(
   rootReducer,
+  loadFromLocalStorage(),
   compose (
     applyMiddleware(...middleware),
   )
