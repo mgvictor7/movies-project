@@ -9,12 +9,12 @@ export default function ErrorMessage(props) {
     <div className="errorMessage">
       <span>An error has occurred</span>
       {retryGetMovies &&
-        <a
+        <button
           className='errorMessageBtn'
           onClick={retryGetMovies}
         >
           Retry
-        </a>
+        </button>
       }
     </div>
   );

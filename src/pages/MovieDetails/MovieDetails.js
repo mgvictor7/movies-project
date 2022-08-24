@@ -23,7 +23,7 @@ export default function MovieDetails() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [rating, setRating] = useState(0);
 
-  const [isAuthenticated, user] = useUserAutheticated();
+  const [isAuthenticated] = useUserAutheticated();
   const [isLoading, hasError, movie] = useMovie(parseInt(idMovie, 10));
   const urlImg = usePosterImage(movie?.poster_path);
 

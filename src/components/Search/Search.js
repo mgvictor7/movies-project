@@ -45,7 +45,7 @@ export default function Search(props) {
         onChange={handleChange}
         value={text}
       />
-      {isSeaching && <a className='searchButton' onClick={handleCancel}>Cancel</a>}
+      {isSeaching && <button type="button" className='searchButton' onClick={handleCancel}>Cancel</button>}
     </div>
   )
 }

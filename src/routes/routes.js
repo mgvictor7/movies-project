@@ -7,6 +7,9 @@ import MoviesFavorites from '../pages/MoviesFavorites';
 
 import RequireAuth from '../components/RequireAuth';
 
+/**
+ * Set available routes
+ */
 const CurrentRoutes =  () => (
   <BrowserRouter>
     <Routes>

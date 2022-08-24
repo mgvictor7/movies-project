@@ -5,7 +5,7 @@ import * as MoviesActions from '../redux/movies/actions';
 
 
 /**
- * 
+ * Get movie from store or get from request
  * @param {Number} idMovie 
  * @returns
  */

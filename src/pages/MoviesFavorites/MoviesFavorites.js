@@ -75,6 +75,9 @@ export default function MoviesFavorites() {
   return (
     <Layout>
       <>
+        <div className='header-title-page-wrapper'>
+          <span className='header-title-page'>My favorites movies</span>
+        </div>
         {isLoading && <Loading center />}
         {hasError &&
           <ErrorMessage />

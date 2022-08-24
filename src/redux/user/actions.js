@@ -3,7 +3,7 @@ import SessionStorage from '../../libs/SessionStorage';
 
 
 /**
- *  Get request TOKEN
+ *  Get request TOKEN to Login
  * 
  *  @param {Object} args
  *  @param {String} args.username
@@ -28,8 +28,10 @@ export function login(args) {
           data: result
         });
 
+        // Continue to validate Token with login
         dispatch(validateWithLogin({ ...args, ...result.token }));
     
+        // Save token in localstorage
         SessionStorage.setItem('token', result.token);
       })
       .catch(async (error) => {
@@ -75,6 +77,7 @@ function validateWithLogin(args) {
           data: result
         });
 
+        // Continue to get Session required to do some request
         dispatch(getSession(args));
     
         SessionStorage.setItem('user', result.user);
@@ -134,7 +137,31 @@ function getSession(args) {
  *  Logout
  */
 export function logout() {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const { session } = state.user;
+
+    AxiosRequest({
+      url: 'authentication/session',
+      method: 'DELETE',
+      params: {},
+      data: {
+        session_id: session.session_id,
+      }
+    })
+      .then((response) => {
+        const result = {
+          session: response.data,
+        };
+
+        dispatch({
+          type: 'USER_SESSION_DELETE',
+          data: result
+        });
+      })
+      .catch(async (error) => {
+      });
+
     dispatch({
       type: 'USER_LOGOUT',
     });

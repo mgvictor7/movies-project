@@ -18,6 +18,10 @@ if ( process.env.NODE_ENV === "development") {
   ];
 }
 
+/**
+ * Get data from localstorage to init Store
+ *
+ */
 function loadFromLocalStorage() {
   try {
     const user = SessionStorage.getItem('user');
@@ -40,6 +44,9 @@ function loadFromLocalStorage() {
   }
 }
 
+/**
+ * Create store
+ */
 const store = createStore(
   rootReducer,
   loadFromLocalStorage(),
