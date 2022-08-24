@@ -2,6 +2,25 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project structure
+
+```text
+src
+├── components              * Components of the projects that are not the main views.
+├── constants               * Set non-modifiable data 
+├── hooks                   * Aplication hooks
+├── libs                    * Aplication custom libs
+├── pages                   * Routed components that represents pages
+├── redux                   * Set aplication reducers and actions
+├── routes                  * Set aplications routes
+├── store                   * Define main store
+├── App.css                 * Main app styles.
+├── App.js                  * Main app component.
+├── index.css               * Initial app styles.
+└── index.js                * Entry point of the application.
+
+```
+
 ## Before start
 1. You need an api key from https://www.themoviedb.org/
 2. Rename the file example.key.json located in src/constants to key.json
